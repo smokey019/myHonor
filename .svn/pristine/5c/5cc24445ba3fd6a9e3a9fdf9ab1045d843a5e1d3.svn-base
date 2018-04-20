@@ -1,0 +1,23 @@
+## Interface: 50400
+
+## Title: my|cffeda55fHonor|r [|cff00aa003.41|r Release]
+
+
+## Author: Destanora aka Smokey - Area 52 Horde US
+
+## Version: 3.41
+
+## X-eMail: frozensmoke@gmail.com
+
+## Notes: Brokers honor and conquest stats in the best way possible, with tons of features.
+
+## SavedVariablesPerCharacter:  myOptions, myStats
+
+
+libs\LibStub.lua
+
+libs\CallbackHandler-1.0.lua
+
+libs\LibDataBroker-1.1.lua
+
+myHonor.xml
