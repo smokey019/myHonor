@@ -85,10 +85,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             ToggleMinimapButton();
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             ToggleMinimapButton();
 						end
 					</OnClick>
@@ -132,10 +132,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions.BattleStatistics = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions.BattleStatistics = false;
 						end
 					</OnClick>				
@@ -264,10 +264,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][1] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][1] = false;
 						end
 						UpdateDisplayBar()
@@ -313,10 +313,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][2] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][2] = false;
 						end
 						UpdateDisplayBar()
@@ -362,10 +362,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][3] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][3] = false;
 						end
 						UpdateDisplayBar()
@@ -411,10 +411,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][4] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][4] = false;
 						end
 						UpdateDisplayBar()
@@ -460,10 +460,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][5] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][5] = false;
 						end
 						UpdateDisplayBar()
@@ -509,10 +509,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][6] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][6] = false;
 						end
 						UpdateDisplayBar()
@@ -558,10 +558,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][7] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][7] = false;
 						end
 						UpdateDisplayBar()
@@ -607,10 +607,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][8] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][8] = false;
 						end
 						UpdateDisplayBar()
@@ -656,10 +656,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][9] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][9] = false;
 						end
 						UpdateDisplayBar()
@@ -705,10 +705,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][10] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][10] = false;
 						end
 						UpdateDisplayBar()
@@ -754,10 +754,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][11] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][11] = false;
 						end
 						
@@ -803,10 +803,10 @@
 					</OnLoad>
                     <OnClick>
 						if ( self:GetChecked() ) then
-							PlaySound("igMainMenuOptionCheckBoxOff");
+							PlaySound(857, "Master");
                             myOptions["DisplayBar"][12] = true;
 						else
-							PlaySound("igMainMenuOptionCheckBoxOn");
+							PlaySound(856, "Master");
                             myOptions["DisplayBar"][12] = false;
 						end
 						UpdateDisplayBar()
@@ -829,7 +829,7 @@
                 </Anchors>
                 <Scripts>
                     <OnClick>
-						PlaySound("igMainMenuOptionCheckBoxOn");
+						PlaySound(856, "Master");
 						HideUIPanel(mh_OptionsWindow);
 					</OnClick>
                 </Scripts>
@@ -848,7 +848,7 @@
                 </Anchors>
                 <Scripts>
                     <OnClick>
-						PlaySound("igMainMenuOptionCheckBoxOn");
+						PlaySound(856, "Master");
 						HideUIPanel(mh_OptionsWindow);
 					</OnClick>
                 </Scripts>

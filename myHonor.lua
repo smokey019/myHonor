@@ -224,7 +224,7 @@ function events:PLAYER_ENTERING_WORLD()
 		frame:CheckDate()
 	end
 	
-    HonorGained = (select(2,GetCurrencyInfo(HONOR_CURRENCY)))
+    HonorGained = (UnitHonor("player"))
 	ZoneInfo = (select(2, IsInInstance()))
 	local WorldBG_Active = (select(3, GetWorldPVPAreaInfo(2)))
 	local ZoneName = GetZoneText()
@@ -242,7 +242,7 @@ function events:PLAYER_ENTERING_WORLD()
 	    --LastBG = BGHonor
 	    --BGHonor = 0
 		 
-        HonorBefore = (select(2,GetCurrencyInfo(HONOR_CURRENCY)))
+        HonorBefore = (UnitHonor("player"))
 		
 		--reset BG DMG
 		BGDmg = 0
@@ -380,14 +380,14 @@ end
 ---------------------
 function events:CURRENCY_DISPLAY_UPDATE()
 
-HonorGained = (select(2,GetCurrencyInfo(HONOR_CURRENCY)))
+HonorGained = (UnitHonor("player"))
 ConqTotal = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
-local NegativeHP = (select(2,GetCurrencyInfo(HONOR_CURRENCY))) - StartingHonor
+local NegativeHP = (UnitHonor("player")) - StartingHonor
 local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
 
 	if (FinallyLoaded==true) then
 		
-		SessionHonor = (select(2,GetCurrencyInfo(HONOR_CURRENCY))) - StartingHonor
+		SessionHonor = (UnitHonor("player")) - StartingHonor
 		SessionCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
 		
 		SessionHKs = GetPVPLifetimeStats() - StartingHKs
@@ -402,7 +402,7 @@ local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConq
 	
 	if (InBG==1) then
 	
-		BGHonor = (select(2,GetCurrencyInfo(HONOR_CURRENCY))) - HonorBefore
+		BGHonor = (UnitHonor("player")) - HonorBefore
 		BGConquest = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - ConquestBefore
 		
 	end
@@ -431,7 +431,7 @@ local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConq
 			ShortPrint("** You've reached your honor goal! **")
 			ShortPrint("** You've reached your honor goal! **")
 			ShortPrint("** You've reached your honor goal! **")
-			PlaySound("RaidWarning")
+			PlaySound(8959, "Master")
 			myStats.HonorGoal=0
 			--Splashed = 1
 
@@ -448,7 +448,7 @@ local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConq
 			ShortPrint("** You've reached your conquest goal! **")
 			ShortPrint("** You've reached your conquest goal! **")
 			ShortPrint("** You've reached your conquest goal! **")
-			PlaySound("RaidWarning")
+			PlaySound(8959, "Master")
 			myStats.ConquestGoal=0
 			--Splashed = 1
 
@@ -713,8 +713,8 @@ function frame:CheckHonor()
 
 	if (FinallyLoaded==nil) then
 
-		StartingHonor = (select(2,GetCurrencyInfo(HONOR_CURRENCY)))
-		StartingHKs = GetPVPLifetimeStats()
+		StartingHonor = (UnitHonor("player"))
+		StartingHKs, pRank = GetPVPLifetimeStats()
 		StartingConquest = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
 		FinallyLoaded = true
 	
@@ -880,7 +880,7 @@ function myHonorTT(tt,which)
 		local hc, InBGtext, pname, rname, fname
 		local sessionTime = time() - startTime
      	pname = GetHighText(UnitName("player"))
-     	rname = GreenText(GetCVar("realmname"))
+     	rname = GreenText(GetRealmName())
      	fname = UnitFactionGroup("player")
      	hc = GetPVPLifetimeStats()
 		
@@ -978,7 +978,7 @@ function myHonorTT(tt,which)
 		tt:AddLine(GetHighText(mhAddon.." v"..mhVersion))
 		tt:AddLine(" ")
 		tt:AddDoubleLine(mH_TT_STATUS,InBGtext)
-		tt:AddDoubleLine(mH_TT_TOTALPTS,GetHighText((select(2,GetCurrencyInfo(HONOR_CURRENCY)))).."/4000"..texIcon(honorIcon))
+		tt:AddDoubleLine(mH_TT_TOTALPTS,GetHighText((UnitHonor("player")))..texIcon(honorIcon))
 		tt:AddDoubleLine(mH_TT_TOTALHKS,GetHighText(hc))
 		tt:AddDoubleLine(mH_TT_TODAYPTS,GetHighText(("%d"):format(myStats.HonorToday))..texIcon(honorIcon))
 		tt:AddDoubleLine(mH_TT_YESPTS,GetHighText(("%d"):format(myStats.HonorYesterday))..texIcon(honorIcon))
@@ -1169,14 +1169,14 @@ end
 
 function UpdateDisplayBar()
 
-	HonorGained = (select(2,GetCurrencyInfo(HONOR_CURRENCY)))
+	HonorGained = (UnitHonor("player"))
 	ConqTotal = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
-	local NegativeHP = (select(2,GetCurrencyInfo(HONOR_CURRENCY))) - StartingHonor
+	local NegativeHP = (UnitHonor("player")) - StartingHonor
 	local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
 	
 	if (InBG==1) then
 	
-		BGHonor = (select(2,GetCurrencyInfo(HONOR_CURRENCY))) - HonorBefore
+		BGHonor = (UnitHonor("player")) - HonorBefore
 		BGConquest = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - ConquestBefore
 		
 	end
@@ -1201,7 +1201,7 @@ function UpdateDisplayBar()
 
 			RaidNotice_AddMessage(RaidWarningFrame, mH_TXT_GOALMET, ChatTypeInfo["RAID_WARNING"])
 			DEFAULT_CHAT_FRAME:AddMessage(mH_TXT_GOALMET, 1, 0.50, 0)
-			PlaySound("RaidWarning")
+			PlaySound(8959, "Master")
 			Splashed = 1
 
 		end
@@ -1213,7 +1213,7 @@ function UpdateDisplayBar()
 			CombatText_AddMessage(mq_TXT_GOALMET, CombatText_StandardScroll, 1, 0.50, 0)
 			RaidNotice_AddMessage(RaidWarningFrame, mq_TXT_GOALMET, ChatTypeInfo["RAID_WARNING"])
 			DEFAULT_CHAT_FRAME:AddMessage(mq_TXT_GOALMET, 1, 0.50, 0)
-			PlaySound("RaidWarning")
+			PlaySound(8959, "Master")
 			Splashed = 1
 
 		end
@@ -1348,6 +1348,6 @@ function UpdateDisplayBar()
 
 end
 
---word, ©opyright Smokey, 2015 All Rights Reserved, released under GNU License #3.
+--word, ï¿½opyright Smokey, 2015 All Rights Reserved, released under GNU License #3.
 --if you're going to edit, at least give me credit or tell me about it and we can work together
 --2015
