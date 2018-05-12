@@ -89,7 +89,7 @@ frame:SetScript("OnEvent", function(self, event, ...)
 end);
 frame:RegisterEvent"PLAYER_ENTERING_WORLD"
 frame:RegisterEvent"PLAYER_LEAVING_WORLD"
-frame:RegisterEvent"CURRENCY_DISPLAY_UPDATE"
+frame:RegisterEvent"CHAT_MSG_COMBAT_HONOR_GAIN"
 frame:RegisterEvent"COMBAT_TEXT_UPDATE"
 frame:RegisterEvent"ADDON_LOADED"
 frame:RegisterEvent"PLAYER_LOGOUT"
@@ -378,7 +378,7 @@ end
 ---------------------
 --Currency updating--
 ---------------------
-function events:CURRENCY_DISPLAY_UPDATE()
+function events:CHAT_MSG_COMBAT_HONOR_GAIN()
 
 HonorGained = (UnitHonor("player"))
 ConqTotal = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
@@ -547,7 +547,7 @@ else
 		myStats.HonorGoal = tonumber(msg)
 		ShortPrint(mH_TXT_GOALSET..myStats.HonorGoal)
 		Splashed = 0
-		events:CURRENCY_DISPLAY_UPDATE()
+		events:CHAT_MSG_COMBAT_HONOR_GAIN()
 	
 	else
 	
@@ -555,7 +555,7 @@ else
 		myStats.ConquestGoal = tonumber(msg)
 		ShortPrint(mq_TXT_GOALSET..myStats.ConquestGoal)
 		Splashed = 0
-		events:CURRENCY_DISPLAY_UPDATE()
+		events:CHAT_MSG_COMBAT_HONOR_GAIN()
 	
 	end
 	
@@ -699,7 +699,7 @@ function dataobj.OnClick(self, button)
 
 	end
 	
-	events:CURRENCY_DISPLAY_UPDATE()
+	events:CHAT_MSG_COMBAT_HONOR_GAIN()
 	
 end
 
