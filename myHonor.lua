@@ -378,16 +378,15 @@ end
 ---------------------
 --Currency updating--
 ---------------------
-function events:CHAT_MSG_COMBAT_HONOR_GAIN()
+function events:CHAT_MSG_COMBAT_HONOR_GAIN(value)
 
-HonorGained = (UnitHonor("player"))
+HonorGained = tonumber(string.match (value, "%d+"))
 ConqTotal = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
-local NegativeHP = (UnitHonor("player")) - StartingHonor
 local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
 
 	if (FinallyLoaded==true) then
 		
-		SessionHonor = (UnitHonor("player")) - StartingHonor
+		SessionHonor = SessionHonor + HonorGained
 		SessionCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
 		
 		SessionHKs = GetPVPLifetimeStats() - StartingHKs
@@ -402,7 +401,7 @@ local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConq
 	
 	if (InBG==1) then
 	
-		BGHonor = (UnitHonor("player")) - HonorBefore
+		BGHonor = BGHonor + HonorGained
 		BGConquest = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - ConquestBefore
 		
 	end
