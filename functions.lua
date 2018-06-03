@@ -169,10 +169,10 @@ end
 function siUnits(value)
 	if(not value or value == 0) then
 		return 0
-	elseif(value >= 10^3) then
-		return ("%.1fk"):format(value / 10^3)
 	elseif(value >= 10^6) then
 		return ("%.1fm"):format(value / 10^6)
+	elseif(value >= 10^3) then
+		return ("%.1fk"):format(value / 10^3)
 	else
 		return value
 	end
