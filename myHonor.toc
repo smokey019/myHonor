@@ -1,11 +1,11 @@
 ## Interface: 70300
 
-## Title: my|cffeda55fHonor|r [|cff00aa007.3.02|r Release]
+## Title: my|cffeda55fHonor|r [|cff00aa007.4.0|r Release]
 
 
 ## Author: www.twitch.tv/Smokey
 
-## Version: 7.3.02
+## Version: 7.4.0
 
 ## Notes: Brokers honor stats in the best way possible, with tons of features.
 
