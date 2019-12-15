@@ -36,4 +36,4 @@ Right click on minimap button or display bar to open the options panel.
  
 https://wow.curseforge.com/projects/myhonor
 
-http://www.smokey.wtf/
+https://smokey.gg
