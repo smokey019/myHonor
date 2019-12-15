@@ -113,20 +113,6 @@ local function ShortPrint(text)
 
 end
 
-local function sendSync(prefix,msg)
-
-local zoneType = select(2, IsInInstance())
-
-	if zoneType == "pvp" or zoneType == "arena" then
-		SendAddonMessage("myHonor", prefix .. ": " .. msg, "INSTANCE_CHAT")
-	end
-
-	if IsInGuild() then
-		SendAddonMessage("myHonor", prefix .. ": " .. msg, "GUILD")
-	end
-
-end
-
 function events:CHAT_MSG_ADDON(prefix, msg, channel, sender)
 
 --print("Prefix: " .. prefix,"|Msg: '" .. msg,"'|Channel: " .. channel,"|Sender: " .. sender)
@@ -168,13 +154,6 @@ end
 	end
 
 end
-
-end
-
-function events:RAID_ROSTER_UPDATE()
-
---someone joined the raid (BG or otherwise) send a version sync
-sendSync("V",mhVersion)
 
 end
 
@@ -275,13 +254,6 @@ function events:PLAYER_ENTERING_WORLD()
 	if (FinallyLoaded==nil) then
 		self:CheckHonor()
 	end
-
-if (IsAddonMessagePrefixRegistered("myHonor")==false) then
-	RegisterAddonMessagePrefix("myHonor")
-end
-
--- We're entering the world so send a Version Sync.
-sendSync("V",mhVersion)
 
 end
 
@@ -546,7 +518,7 @@ else
 		myStats.HonorGoal = tonumber(msg)
 		ShortPrint(mH_TXT_GOALSET..myStats.HonorGoal)
 		Splashed = 0
-		events:CHAT_MSG_COMBAT_HONOR_GAIN()
+		--events:CHAT_MSG_COMBAT_HONOR_GAIN()
 
 	else
 
@@ -554,7 +526,7 @@ else
 		myStats.ConquestGoal = tonumber(msg)
 		ShortPrint(mq_TXT_GOALSET..myStats.ConquestGoal)
 		Splashed = 0
-		events:CHAT_MSG_COMBAT_HONOR_GAIN()
+		--events:CHAT_MSG_COMBAT_HONOR_GAIN()
 
 	end
 
@@ -698,7 +670,7 @@ function dataobj.OnClick(self, button)
 
 	end
 
-	events:CHAT_MSG_COMBAT_HONOR_GAIN()
+	--events:CHAT_MSG_COMBAT_HONOR_GAIN()
 
 end
 
@@ -1253,7 +1225,7 @@ function UpdateDisplayBar()
 	if (myOptions["DisplayBar"][1]==true) then
 
 		dataobj.value = HonorGained
-		dataobj.text = dataobj.text..Should_I_Be_Red(HonorGained).."/4000"..mH_BAR_ONE.." | "
+		dataobj.text = dataobj.text..Should_I_Be_Red(HonorGained).."/"..GreenText(UnitHonorMax("player"))..mH_BAR_ONE.." | "
 
 	end
 
