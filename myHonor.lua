@@ -88,7 +88,6 @@ frame:SetScript("OnEvent", function(self, event, ...)
  events[event](self, ...);
 end);
 frame:RegisterEvent"PLAYER_ENTERING_WORLD"
-frame:RegisterEvent"PLAYER_LEAVING_WORLD"
 frame:RegisterEvent"CHAT_MSG_COMBAT_HONOR_GAIN"
 frame:RegisterEvent"COMBAT_TEXT_UPDATE"
 frame:RegisterEvent"ADDON_LOADED"
@@ -96,16 +95,6 @@ frame:RegisterEvent"PLAYER_LOGOUT"
 frame:RegisterEvent"CHAT_MSG_ADDON"
 frame:RegisterEvent"RAID_ROSTER_UPDATE"
 frame:RegisterEvent"UPDATE_BATTLEFIELD_SCORE"
---frame:RegisterEvent"CHAT_MSG_CURRENCY"
-
---TitanPanel Registration
-
---self.registry = {id = "myHonor"}
-
-
---[[
-	End Configuration
-]]--
 
 local function ShortPrint(text)
 
@@ -115,45 +104,45 @@ end
 
 function events:CHAT_MSG_ADDON(prefix, msg, channel, sender)
 
---print("Prefix: " .. prefix,"|Msg: '" .. msg,"'|Channel: " .. channel,"|Sender: " .. sender)
+	--print("Prefix: " .. prefix,"|Msg: '" .. msg,"'|Channel: " .. channel,"|Sender: " .. sender)
 
-if (prefix=="myHonor") then
+	if (prefix=="myHonor") then
 
-local AlreadyIn = false
+		local AlreadyIn = false
 
-for v in pairs(peopleUsing.Character) do
-	if (sender:lower()==peopleUsing.Character[v]:lower()) then
-		AlreadyIn = true
-	end
-end
+		for v in pairs(peopleUsing.Character) do
+			if (sender:lower()==peopleUsing.Character[v]:lower()) then
+				AlreadyIn = true
+			end
+		end
 
-if (AlreadyIn==false) then
-	table.insert(peopleUsing.Character,sender)
+		if (AlreadyIn==false) then
+			table.insert(peopleUsing.Character,sender)
 
-	--ShortPrint(sender.." is using myHonor!")
-end
+			--ShortPrint(sender.." is using myHonor!")
+		end
 
-	if (string.find(msg,"V")) then
+		if (string.find(msg,"V")) then
 
-		--is this a beta version? probably me sending out messages in which case we will ignore :p
-		if (string.find(msg,"Beta")) then return end
+			--is this a beta version? probably me sending out messages in which case we will ignore :p
+			if (string.find(msg,"Beta")) then return end
 
-		msg = string.gsub(msg,"V: ","")
-		msg = string.gsub(msg," Release","")
-		msg = string.gsub(msg," ","")
+			msg = string.gsub(msg,"V: ","")
+			msg = string.gsub(msg," Release","")
+			msg = string.gsub(msg," ","")
 
-		local CurrentVersion = string.gsub(mhVersion," Release","")
-		CurrentVersion = string.gsub(CurrentVersion," Beta","")
-		CurrentVersion = string.gsub(CurrentVersion," ","")
+			local CurrentVersion = string.gsub(mhVersion," Release","")
+			CurrentVersion = string.gsub(CurrentVersion," Beta","")
+			CurrentVersion = string.gsub(CurrentVersion," ","")
 
-		if (msg > CurrentVersion and showedUpdate == false) then
-			ShortPrint("myHonor is out of date. Latest Version: " .. msg .. " You have: " .. mhVersion .. ".  Please visit Curse.com to get the latest version!")
-			showedUpdate = true
+			if (msg > CurrentVersion and showedUpdate == false) then
+				ShortPrint("myHonor is out of date. Latest Version: " .. msg .. " You have: " .. mhVersion .. ".  Please visit Curse.com to get the latest version!")
+				showedUpdate = true
+			end
+
 		end
 
 	end
-
-end
 
 end
 
@@ -175,16 +164,9 @@ function events:ADDON_LOADED(arg1)
 
 end
 
-
-function events:PLAYER_LEAVING_WORLD()
-
---self:SaveStuff()
-
-end
-
 function events:PLAYER_LOGOUT()
 
-self:SaveStuff()
+	self:SaveStuff()
 
 end
 
@@ -235,7 +217,7 @@ function events:PLAYER_ENTERING_WORLD()
 		ConquestGained_InBG = ConquestGained_InBG + WGHonor
 	    LastWG = WGHonor
 	    WGHonor = 0
-        ConquestBefore = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
+        ConquestBefore = C_CurrencyInfo.GetCurrencyInfo(1602).quantity
 
 	elseif (ZoneInfo == "none") then --PROBABLY not in a BG
 
@@ -303,49 +285,14 @@ end
 ]]--
 function events:COMBAT_TEXT_UPDATE(event,amount)
 
-if (event=="HONOR_GAINED") then
-	--print(amount)
-	myStats.HonorToday = myStats.HonorToday + amount
-	--SessionHonor = SessionHonor + amount
-	--SessionCP = SessionCP + amount
-end
-
-end
-
---[[
-function events:CHAT_MSG_CURRENCY(message,textmessage)
-
---print("1 "..message)
---print("2 "..textmessage)
-
-	if (string.find(message,"Honor Points")) then
-
-		--print("honor found")
-		--message = textmessage
-		--message = string.gsub(message,"You receive currency: Honor Points x","")
-		--message = string.gsub(message,".","")
-
-		local hnr1, hnr2 = strsplit("x",message)
-
-		print (hnr1)
-		print(hnr2)
-		hnr2 = string.gsub(hnr2,".","")
-
-		--print(message)
-		--print(textmessage)
-
-		SessionHonor = SessionHonor + hnr2
-
+	if (event=="HONOR_GAINED") then
+		--print(amount)
+		myStats.HonorToday = myStats.HonorToday + amount
+		--SessionHonor = SessionHonor + amount
+		--SessionCP = SessionCP + amount
 	end
 
---arg1 = strsplit(" ",arg1)
-
---for v in pairs(arg1) do
-	--print(arg1[v])
---end
-
 end
-]]--
 
 ---------------------
 --Currency updating--
@@ -353,28 +300,28 @@ end
 function events:CHAT_MSG_COMBAT_HONOR_GAIN(value)
 
 HonorGained = tonumber(string.match (value, "%d+"))
-ConqTotal = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
-local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
+ConqTotal = C_CurrencyInfo.GetCurrencyInfo(1602).quantity
+local NegativeCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConquest
 
 	if (FinallyLoaded==true) then
 
 		SessionHonor = SessionHonor + HonorGained
-		SessionCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
+		SessionCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConquest
 
 		SessionHKs = GetPVPLifetimeStats() - StartingHKs
 
 		frame:CheckDate()
 
 		TotalHKs = GetPVPLifetimeStats()
-		ConqCap = (select(5,GetCurrencyInfo(CONQUEST_CURRENCY)))
-		ConqCapTotal = (select(4,GetCurrencyInfo(CONQUEST_CURRENCY)))
+		ConqCap = (select(5,C_CurrencyInfo.GetCurrencyInfo(1602)))
+		ConqCapTotal = (select(4,C_CurrencyInfo.GetCurrencyInfo(1602)))
 
 	end
 
 	if (InBG==1) then
 
 		BGHonor = BGHonor + HonorGained
-		BGConquest = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - ConquestBefore
+		BGConquest = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - ConquestBefore
 
 	end
 
@@ -686,7 +633,7 @@ function frame:CheckHonor()
 
 		StartingHonor = (UnitHonor("player"))
 		StartingHKs, pRank = GetPVPLifetimeStats()
-		StartingConquest = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
+		StartingConquest = C_CurrencyInfo.GetCurrencyInfo(1602).quantity
 		FinallyLoaded = true
 
 	end
@@ -782,6 +729,7 @@ do
 	end)
 	button:SetScript("OnClick", function(self, button)
 
+		ToggleHonor()
 
 	end)
 	button:SetScript("OnEnter", function(self)
@@ -949,37 +897,10 @@ function myHonorTT(tt,which)
 		tt:AddLine(GetHighText(mhAddon.." v"..mhVersion))
 		tt:AddLine(" ")
 		tt:AddDoubleLine(mH_TT_STATUS,InBGtext)
-		tt:AddDoubleLine(mH_TT_TOTALPTS,GetHighText((UnitHonor("player")))..texIcon(honorIcon))
 		tt:AddDoubleLine(mH_TT_TOTALHKS,GetHighText(hc))
+		tt:AddDoubleLine(mH_TT_TOTALPTS,GetHighText((UnitHonor("player")))..texIcon(honorIcon))
 		tt:AddDoubleLine(mH_TT_TODAYPTS,GetHighText(("%d"):format(myStats.HonorToday))..texIcon(honorIcon))
 		tt:AddDoubleLine(mH_TT_YESPTS,GetHighText(("%d"):format(myStats.HonorYesterday))..texIcon(honorIcon))
-
-		--[[
-
-		not really relevant any more. so we'll comment it out
-
-		if ( WG_isActive ) then
-
-			tt:AddLine(GetHighText("Wintergrasp is in progress!"))
-
-		elseif ( WG_startTime > 0 ) then
-
-			tt:AddDoubleLine("Wintergrasp's next battle: ",GetHighText(SecondsToTime(WG_startTime)))
-
-		end
-
-		if ( TB_isActive ) then
-
-			tt:AddLine(GetHighText("Tol Barad is in progress!"))
-
-		elseif ( TB_startTime > 0 ) then
-
-			tt:AddDoubleLine("Tol Barad's next battle: ",GetHighText(SecondsToTime(TB_startTime)))
-
-		end
-
-		--]]
-
 		tt:AddLine("---------------------------------")
 		tt:AddLine(GetHighText(mH_TT_SESSIONSTATS))
 		tt:AddDoubleLine(mH_TT_SESSIONPTS,Should_I_Be_Red(format("%d",SessionHonor)))
@@ -997,7 +918,7 @@ function myHonorTT(tt,which)
 		tt:AddDoubleLine(mH_TT_BGDMG,RedText(BGDmg)..dmgIcon)
 		tt:AddDoubleLine(mH_TT_BGHEAL,GreenText(BGHeals)..healsIcon)
 		tt:AddLine("---------------------------------")
-		tt:AddDoubleLine(mH_TT_GOALTEXT,GetHighText(HonorGained).."/"..GreenText(myStats.HonorGoal).." "..PurpleText("\("..HonorGoalPercent.."\%\)"))
+		tt:AddDoubleLine(mH_TT_GOALTEXT,GetHighText(HonorGained).."/"..GreenText(myStats.HonorGoal).." "..PurpleText("("..HonorGoalPercent.."%)"))
 		tt:AddDoubleLine(mH_TT_GOALTEXT2,GetHighText(HonorGoalFinal))
 		tt:AddDoubleLine(mH_TT_GOALTIME,GreenText(HonorGoalTime))
 		tt:AddDoubleLine("People Using myHonor:",Should_I_Be_Red(table.getn(peopleUsing.Character)))
@@ -1009,15 +930,16 @@ function myHonorTT(tt,which)
 	else
 
 	--display Conquest Tooltip
-	local teamTwos, teamThrees, teamFives = {}, {}, {}
+	local teamTwos, teamThrees, teamFives = GetPersonalRatedInfo(1), GetPersonalRatedInfo(2), GetPersonalRatedInfo(3)
 	local ConquestPossible
 	local CurrentSeason = GetCurrentArenaSeason()
-	local Team2Final, Team3Final, Team5Final
 	local CPPercent, CPcapPercent = 0, 0
 
-	teamTwos = { ["arenaName"] = "None", ["arenaRating"] = 0, ["PR"] = 0 }
-	teamThrees = { ["arenaName"] = "None", ["arenaRating"] = 0, ["PR"] = 0 }
-	teamFives = { ["arenaName"] = "None", ["arenaRating"] = 0, ["PR"] = 0 }
+	if (CurrentSeason == 0) then
+
+		CurrentSeason = "Inactive"
+
+	end
 
  	if (SessionCP>0) then
 
@@ -1029,7 +951,6 @@ function myHonorTT(tt,which)
 
 	end
 
-	--xpPerHour =
 	if (fname=="Alliance") then
 
         fname = BlueText(UnitFactionGroup("player"))
@@ -1073,27 +994,9 @@ function myHonorTT(tt,which)
 
 	 end
 
-	 if (myStats.ConquestGoal>0) then
-
-		if (ConqCap-ConqCapTotal>ConquestGoalFinal) then
-
-			ConquestPossible = GreenText("Yes")
-
-		else
-
-			ConquestPossible = RedText("No")
-
-		end
-
-	 else
-
-	 	ConquestPossible = GreenText("N\/A")
-
-	 end
-
 	 if (myStats.ConquestGoal==0) then
 
-	 ConquestGoalTime = GetHighText("N/A")
+	 	ConquestGoalTime = GetHighText("N/A")
 
 	 elseif (myStats.ConquestGoal<ConqTotal) then
 
@@ -1105,30 +1008,25 @@ function myHonorTT(tt,which)
 	tt:AddLine(GetHighText(mqAddon.." v"..mqVersion))
 	tt:AddLine(GetHighText(mC_TT_SEASONTXT..CurrentSeason))
 	tt:AddLine(" ")
-	tt:AddDoubleLine(mC_TT_STATUS,InBGtext)
 	tt:AddLine("---------------------------------")
 	tt:AddDoubleLine(GetHighText(mC_TT_WGSTATS))
 	tt:AddDoubleLine(mC_TT_LASTWG,Should_I_Be_Red(LastBG))
 	tt:AddDoubleLine(mC_TT_SESSIONCP,Should_I_Be_Red(SessionCP))
 	tt:AddDoubleLine(mC_TT_AVGPTS,Should_I_Be_Red(format("%d",AvgCP)))
 	tt:AddDoubleLine(mC_TT_BGCOUNT,Should_I_Be_Red(WGCount))
-	tt:AddDoubleLine(mC_TT_CAP,GreenText(ConqTotal.."/"..ConqCap)..PurpleText(" \("..CPcapPercent.."\%\)"))
+	tt:AddDoubleLine(mC_TT_CAP,GreenText(ConqTotal.."/"..ConqCap)..PurpleText(" ("..CPcapPercent.."%)"))
 	tt:AddDoubleLine(mC_TT_PERHR,Should_I_Be_Red(format("%d",perHour)))
 	tt:AddLine("----------------------------------")
-	tt:AddDoubleLine(mC_TT_GOALTEXT,GreenText(ConqTotal.."/"..myStats.ConquestGoal)..PurpleText(" \("..ConquestGoalPercent.."\%\)"))
+	tt:AddDoubleLine(mC_TT_GOALTEXT,GreenText(ConqTotal.."/"..myStats.ConquestGoal)..PurpleText(" ("..ConquestGoalPercent.."%)"))
 	tt:AddDoubleLine(mC_TT_GOALTEXT2,GetHighText(ConquestGoalFinal))
 	tt:AddDoubleLine(mC_TT_GOALTIME,GreenText(ConquestGoalTime))
-	tt:AddDoubleLine(mC_TT_POSSIBLE,ConquestPossible)
 	tt:AddLine("---------------------------------")
 	tt:AddLine(GetHighText("2v2 Team Statistics"))
-	tt:AddLine("Team Rating: "..GetHighText(teamTwos["arenaRating"]))
-	tt:AddLine("Conquest Point Cap: "..OrangeText(GetConqCap(teamTwos.PR)))
+	tt:AddLine("Team Rating: "..GetHighText((select(1 , teamTwos))))
 	tt:AddLine(GetHighText("3v3 Team Statistics"))
-	tt:AddLine("Team Rating: "..GetHighText(teamThrees["arenaRating"]))
-	tt:AddLine("Conquest Point Cap: "..OrangeText(GetConqCap(teamThrees.PR)))
+	tt:AddLine("Team Rating: "..GetHighText((select(1 , teamThrees))))
 	tt:AddLine(GetHighText("5v5 Team Statistics"))
-	tt:AddLine("Team Rating: "..GetHighText(teamFives["arenaRating"]))
-	tt:AddLine("Conquest Point Cap: "..OrangeText(GetConqCap(teamFives.PR)))
+	tt:AddLine("Team Rating: "..GetHighText((select(1 , teamFives))))
 	tt:AddLine(" ")
 	tt:AddLine("Left click to change tooltip display.")
 	tt:AddLine(GreenText("Right click to open the options."),nil,nil,nil,1)
@@ -1141,14 +1039,14 @@ end
 function UpdateDisplayBar()
 
 	HonorGained = (UnitHonor("player"))
-	ConqTotal = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY)))
+	ConqTotal = C_CurrencyInfo.GetCurrencyInfo(1602).quantity
 	local NegativeHP = (UnitHonor("player")) - StartingHonor
-	local NegativeCP = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - StartingConquest
+	local NegativeCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConquest
 
 	if (InBG==1) then
 
 		BGHonor = (UnitHonor("player")) - HonorBefore
-		BGConquest = (select(2,GetCurrencyInfo(CONQUEST_CURRENCY))) - ConquestBefore
+		BGConquest = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - ConquestBefore
 
 	end
 
@@ -1319,6 +1217,6 @@ function UpdateDisplayBar()
 
 end
 
---word, �opyright Smokey, 2015-2019 All Rights Reserved, released under GNU License #3.
+--word, ©opyright Smokey, 2008-2020 All Rights Reserved, released under MIT License.
 --if you're going to edit, at least give me credit or tell me about it and we can work together
---2015-2019
+--2008-2020

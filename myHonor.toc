@@ -1,16 +1,14 @@
-## Interface: 80205
+## Interface: 90001
 
-## Title: my|cffeda55fHonor|r [|cff00aa008.2.1|r Release]
-
+## Title: my|cffeda55fHonor|r [|cff00aa009.0.1|r Release]
 
 ## Author: Smokey
 
-## Version: 8.2.1
+## Version: 9.0.1
 
 ## Notes: Brokers honor stats in the best way possible, with tons of features.
 
 ## SavedVariablesPerCharacter:  myOptions, myStats
-
 
 libs\LibStub.lua
 
