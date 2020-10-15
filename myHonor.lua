@@ -1193,6 +1193,6 @@ function UpdateDisplayBar()
 
 end
 
---word, ©opyright Smokey, 2008-2020 All Rights Reserved, released under MIT License.
+--word, ©opyright Smokey, 2010-2020 All Rights Reserved, released under MIT License.
 --if you're going to edit, at least give me credit or tell me about it and we can work together
---2008-2020
+--2010-2020
