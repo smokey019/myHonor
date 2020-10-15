@@ -6,7 +6,7 @@
 
 By Smokey - Area 52 Horde US
 
-Website: https://smokey.gg
+Website: https://smokey.gg/
 Twitch: https://twitch.tv/Smokey
 
 --]]
@@ -89,7 +89,6 @@ frame:SetScript("OnEvent", function(self, event, ...)
 end);
 frame:RegisterEvent"PLAYER_ENTERING_WORLD"
 frame:RegisterEvent"CHAT_MSG_COMBAT_HONOR_GAIN"
-frame:RegisterEvent"COMBAT_TEXT_UPDATE"
 frame:RegisterEvent"ADDON_LOADED"
 frame:RegisterEvent"PLAYER_LOGOUT"
 frame:RegisterEvent"CHAT_MSG_ADDON"
@@ -280,26 +279,13 @@ function frame:CheckDate()
 	myStats.HonorToday = 0
 end
 
---[[
-	When we get honor..
-]]--
-function events:COMBAT_TEXT_UPDATE(event,amount)
-
-	if (event=="HONOR_GAINED") then
-		--print(amount)
-		myStats.HonorToday = myStats.HonorToday + amount
-		--SessionHonor = SessionHonor + amount
-		--SessionCP = SessionCP + amount
-	end
-
-end
-
 ---------------------
 --Currency updating--
 ---------------------
 function events:CHAT_MSG_COMBAT_HONOR_GAIN(value)
 
 HonorGained = tonumber(string.match (value, "%d+"))
+myStats.HonorToday = myStats.HonorToday + HonorGained
 ConqTotal = C_CurrencyInfo.GetCurrencyInfo(1602).quantity
 local NegativeCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConquest
 
@@ -308,11 +294,11 @@ local NegativeCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConqu
 		SessionHonor = SessionHonor + HonorGained
 		SessionCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConquest
 
-		SessionHKs = GetPVPLifetimeStats() - StartingHKs
+		SessionHKs = (select(1, GetPVPLifetimeStats())) - StartingHKs
 
 		frame:CheckDate()
 
-		TotalHKs = GetPVPLifetimeStats()
+		TotalHKs = (select(1, GetPVPLifetimeStats()))
 		ConqCap = (select(5,C_CurrencyInfo.GetCurrencyInfo(1602)))
 		ConqCapTotal = (select(4,C_CurrencyInfo.GetCurrencyInfo(1602)))
 
@@ -337,42 +323,34 @@ local NegativeCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConqu
 
 	end
 
-	--if (Splashed==0) then
+	if (myStats.HonorGoal<=HonorGained and myStats.HonorGoal>0) then
 
-		--if (myStats.HonorGoal==0) then return end
+		RaidNotice_AddMessage(RaidWarningFrame, mH_TXT_GOALMET, ChatTypeInfo["RAID_WARNING"])
+		--DEFAULT_CHAT_FRAME:AddMessage(mH_TXT_GOALMET, 1, 0.50, 0)
+		ShortPrint("** You've reached your honor goal! **")
+		ShortPrint("** You've reached your honor goal! **")
+		ShortPrint("** You've reached your honor goal! **")
+		ShortPrint("** You've reached your honor goal! **")
+		PlaySound(8959, "Master")
+		myStats.HonorGoal=0
+		--Splashed = 1
 
-		if (myStats.HonorGoal<=HonorGained and myStats.HonorGoal>0) then
+	end
 
-			RaidNotice_AddMessage(RaidWarningFrame, mH_TXT_GOALMET, ChatTypeInfo["RAID_WARNING"])
-			--DEFAULT_CHAT_FRAME:AddMessage(mH_TXT_GOALMET, 1, 0.50, 0)
-			ShortPrint("** You've reached your honor goal! **")
-			ShortPrint("** You've reached your honor goal! **")
-			ShortPrint("** You've reached your honor goal! **")
-			ShortPrint("** You've reached your honor goal! **")
-			PlaySound(8959, "Master")
-			myStats.HonorGoal=0
-			--Splashed = 1
+	if (myStats.ConquestGoal<=ConqTotal and myStats.ConquestGoal>0) then
 
-		end
+		CombatText_AddMessage(mq_TXT_GOALMET, CombatText_StandardScroll, 1, 0.50, 0)
+		RaidNotice_AddMessage(RaidWarningFrame, mq_TXT_GOALMET, ChatTypeInfo["RAID_WARNING"])
+		--DEFAULT_CHAT_FRAME:AddMessage(mq_TXT_GOALMET, 1, 0.50, 0)
+		ShortPrint("** You've reached your conquest goal! **")
+		ShortPrint("** You've reached your conquest goal! **")
+		ShortPrint("** You've reached your conquest goal! **")
+		ShortPrint("** You've reached your conquest goal! **")
+		PlaySound(8959, "Master")
+		myStats.ConquestGoal=0
+		--Splashed = 1
 
-		--if (myStats.ConquestGoal==0) then return end
-
-		if (myStats.ConquestGoal<=ConqTotal and myStats.ConquestGoal>0) then
-
-			CombatText_AddMessage(mq_TXT_GOALMET, CombatText_StandardScroll, 1, 0.50, 0)
-			RaidNotice_AddMessage(RaidWarningFrame, mq_TXT_GOALMET, ChatTypeInfo["RAID_WARNING"])
-			--DEFAULT_CHAT_FRAME:AddMessage(mq_TXT_GOALMET, 1, 0.50, 0)
-			ShortPrint("** You've reached your conquest goal! **")
-			ShortPrint("** You've reached your conquest goal! **")
-			ShortPrint("** You've reached your conquest goal! **")
-			ShortPrint("** You've reached your conquest goal! **")
-			PlaySound(8959, "Master")
-			myStats.ConquestGoal=0
-			--Splashed = 1
-
-		end
-
-	--end
+	end
 
 	if (myStats.ConquestGoal>0) then
 		ConquestGoalFinal = myStats.ConquestGoal - ConqTotal
@@ -392,8 +370,6 @@ local NegativeCP = C_CurrencyInfo.GetCurrencyInfo(1602).quantity - StartingConqu
 	end
 
 	UpdateDisplayBar();
-
-	--TitanPanelButton_UpdateButton("myHonor");
 
 end
 
@@ -632,7 +608,7 @@ function frame:CheckHonor()
 	if (FinallyLoaded==nil) then
 
 		StartingHonor = (UnitHonor("player"))
-		StartingHKs, pRank = GetPVPLifetimeStats()
+		StartingHKs, pRank = (select(1, GetPVPLifetimeStats()))
 		StartingConquest = C_CurrencyInfo.GetCurrencyInfo(1602).quantity
 		FinallyLoaded = true
 
@@ -801,7 +777,7 @@ function myHonorTT(tt,which)
      	pname = GetHighText(UnitName("player"))
      	rname = GreenText(GetRealmName())
      	fname = UnitFactionGroup("player")
-     	hc = GetPVPLifetimeStats()
+     	hc = (select(1, GetPVPLifetimeStats()))
 
 	if (which==1) then
 
@@ -896,11 +872,11 @@ function myHonorTT(tt,which)
 		tt:AddLine(pname.." - "..rname.." ("..fname..") "..texIcon(honorIcon))
 		tt:AddLine(GetHighText(mhAddon.." v"..mhVersion))
 		tt:AddLine(" ")
-		tt:AddDoubleLine(mH_TT_STATUS,InBGtext)
-		tt:AddDoubleLine(mH_TT_TOTALHKS,GetHighText(hc))
-		tt:AddDoubleLine(mH_TT_TOTALPTS,GetHighText((UnitHonor("player")))..texIcon(honorIcon))
-		tt:AddDoubleLine(mH_TT_TODAYPTS,GetHighText(("%d"):format(myStats.HonorToday))..texIcon(honorIcon))
-		tt:AddDoubleLine(mH_TT_YESPTS,GetHighText(("%d"):format(myStats.HonorYesterday))..texIcon(honorIcon))
+		tt:AddDoubleLine(mH_TT_STATUS, format_number(InBGtext))
+		tt:AddDoubleLine(mH_TT_TOTALHKS,GetHighText(format_number(hc)))
+		tt:AddDoubleLine(mH_TT_TOTALPTS,GetHighText(format_number(UnitHonor("player")))..texIcon(honorIcon))
+		tt:AddDoubleLine(mH_TT_TODAYPTS,GetHighText(format_number(("%d"):format(myStats.HonorToday)))..texIcon(honorIcon))
+		tt:AddDoubleLine(mH_TT_YESPTS,GetHighText(format_number(("%d"):format(myStats.HonorYesterday)))..texIcon(honorIcon))
 		tt:AddLine("---------------------------------")
 		tt:AddLine(GetHighText(mH_TT_SESSIONSTATS))
 		tt:AddDoubleLine(mH_TT_SESSIONPTS,Should_I_Be_Red(format("%d",SessionHonor)))
@@ -914,9 +890,9 @@ function myHonorTT(tt,which)
 		tt:AddDoubleLine(mH_TT_AVGHONOR,Should_I_Be_Red(format("%d",AvgHonor)))
 		tt:AddDoubleLine(mH_TT_BGCOUNT,Should_I_Be_Red(BGCount))
 		tt:AddDoubleLine(mH_TT_BGTTL,Should_I_Be_Red(myStats.BattleCount))
-		tt:AddDoubleLine(mH_TT_PERHR,Should_I_Be_Red(format("%d",perHour)))
-		tt:AddDoubleLine(mH_TT_BGDMG,RedText(BGDmg)..dmgIcon)
-		tt:AddDoubleLine(mH_TT_BGHEAL,GreenText(BGHeals)..healsIcon)
+		tt:AddDoubleLine(mH_TT_PERHR,Should_I_Be_Red(format_number(format("%d",perHour))))
+		tt:AddDoubleLine(mH_TT_BGDMG,RedText(siUnits(BGDmg))..dmgIcon)
+		tt:AddDoubleLine(mH_TT_BGHEAL,GreenText(siUnits(BGHeals))..healsIcon)
 		tt:AddLine("---------------------------------")
 		tt:AddDoubleLine(mH_TT_GOALTEXT,GetHighText(HonorGained).."/"..GreenText(myStats.HonorGoal).." "..PurpleText("("..HonorGoalPercent.."%)"))
 		tt:AddDoubleLine(mH_TT_GOALTEXT2,GetHighText(HonorGoalFinal))

@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.blizzard.com/wow/ui/
-    ..\FrameXML\UI.xsd">
+    ../FrameXML/UI.xsd">
     <Script file="functions.lua" />
-	<Script file="lang\Localization.en.lua" />
+	<Script file="lang/Localization.en.lua" />
     <Script file="myHonor.lua" />
 
 <Frame name="mh_OptionsWindow" toplevel="true" enableMouse="true" movable="true" parent="UIParent"
@@ -17,21 +17,23 @@
                 </Offset>
             </Anchor>
         </Anchors>
-        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border"
-            tile="true">
-            <BackgroundInsets>
-                <AbsInset left="11" right="12" top="12" bottom="11" />
-            </BackgroundInsets>
-            <TileSize>
-                <AbsValue val="32" />
-            </TileSize>
+        <Backdrop bgFile="Interface/DialogFrame/UI-DialogBox-Background" edgeFile="Interface/DialogFrame/UI-DialogBox-Border"
+             tile="true" alphaMode="BLEND">
             <EdgeSize>
-                <AbsValue val="32" />
+                <AbsValue val="16"/>
             </EdgeSize>
+            <TileSize>
+                <AbsValue val="32"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+            <Color r="0.7" g="1" b="0.7" a="1" />
+            <BorderColor r="0.7" g="1" b="0.7" a="1" />
         </Backdrop>
         <Layers>
 			<Layer level="ARTWORK">
-				<Texture name="mhOptionsFrameHeader" file="Interface\DialogFrame\UI-DialogBox-Header">
+				<Texture name="mhOptionsFrameHeader" file="Interface/DialogFrame/UI-DialogBox-Header">
 					<Size>
 						<AbsDimension x="256" y="64"/>
 					</Size>
@@ -52,7 +54,7 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-			</Layer>            
+			</Layer>
         </Layers>
         <Frames>
             <CheckButton name="mh_OptionMiniMap" id="0">
@@ -93,11 +95,11 @@
 						end
 					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
             <CheckButton name="mh_OptionTrackStats" id="1">
                 <Size>
@@ -138,13 +140,13 @@
 							PlaySound(856, "Master");
                             myOptions.BattleStatistics = false;
 						end
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
 
 			<CheckButton name="mh_OptionBar_Header" id="1">
@@ -177,15 +179,15 @@
                 <Scripts>
                     <OnLoad>
 						self:SetFrameLevel(10);
-					</OnLoad>				
+					</OnLoad>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
-            </CheckButton>       
-			
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
+            </CheckButton>
+
 			<CheckButton name="mh_OptionBar_Honor" id="14">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -218,19 +220,19 @@
 						self:SetFrameLevel(10);
 					</OnLoad>
                     <OnClick>
-						
+
 						ToggleHonor()
 						UpdateDisplayBar()
-						
-					</OnClick>				
+
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
-            </CheckButton> 
-			
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
+            </CheckButton>
+
 			<CheckButton name="mh_OptionBar_1" id="2">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -271,15 +273,15 @@
                             myOptions["DisplayBar"][1] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_2" id="3">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -320,15 +322,15 @@
                             myOptions["DisplayBar"][2] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_3" id="4">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -369,15 +371,15 @@
                             myOptions["DisplayBar"][3] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_4" id="5">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -418,15 +420,15 @@
                             myOptions["DisplayBar"][4] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_5" id="6">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -467,15 +469,15 @@
                             myOptions["DisplayBar"][5] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_6" id="7">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -516,15 +518,15 @@
                             myOptions["DisplayBar"][6] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_7" id="8">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -565,15 +567,15 @@
                             myOptions["DisplayBar"][7] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_8" id="9">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -614,15 +616,15 @@
                             myOptions["DisplayBar"][8] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_9" id="10">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -663,15 +665,15 @@
                             myOptions["DisplayBar"][9] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_10" id="11">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -712,15 +714,15 @@
                             myOptions["DisplayBar"][10] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_11" id="12">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -760,16 +762,16 @@
 							PlaySound(856, "Master");
                             myOptions["DisplayBar"][11] = false;
 						end
-						
-					</OnClick>				
+
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<CheckButton name="mh_OptionBar_12" id="13">
                 <Size>
                     <AbsDimension x="20" y="20" />
@@ -810,15 +812,15 @@
                             myOptions["DisplayBar"][12] = false;
 						end
 						UpdateDisplayBar()
-					</OnClick>				
+					</OnClick>
                 </Scripts>
-                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
-                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
-                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
-                <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
-                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+                <NormalTexture file="Interface/Buttons/UI-CheckBox-Up" />
+                <PushedTexture file="Interface/Buttons/UI-CheckBox-Down" />
+                <HighlightTexture file="Interface/Buttons/UI-CheckBox-Highlight" alphaMode="ADD" />
+                <CheckedTexture file="Interface/Buttons/UI-CheckBox-Check" />
+                <DisabledCheckedTexture file="Interface/Buttons/UI-CheckBox-Check-Disabled" />
             </CheckButton>
-			
+
 			<Button name="mh_OptionCloseButton" inherits="UIPanelCloseButton">
                 <Anchors>
                     <Anchor point="TOPRIGHT">
@@ -834,7 +836,7 @@
 					</OnClick>
                 </Scripts>
             </Button>
-  
+
 			<Button name="mh_OptionExitButton" inherits="UIPanelButtonTemplate" text="Exit">
                 <Size>
                     <AbsDimension x="77" y="21" />
@@ -853,7 +855,7 @@
 					</OnClick>
                 </Scripts>
             </Button>
-			
+
         </Frames>
 		<Scripts>
             <OnShow>

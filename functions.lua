@@ -1,6 +1,6 @@
---[[ 
+--[[
 	Let's do some functions shall we?
-	 
+
 	This will help clean things up and what-not. No more clutter!
 	++01/16/2011
 --]]
@@ -44,11 +44,11 @@ function mh_OptionsOnShow()
 	if (myOptions["DisplayBar"][12]==true) then
 		mh_OptionBar_12:SetChecked(1)
 	end
-	
+
 	if (myOptions.ShowMinimapButton==true) then
 		mh_OptionMiniMap:SetChecked(1)
 	end
-	
+
 	if (myOptions.BattleStatistics==true) then
 		mh_OptionTrackStats:SetChecked(1)
 	end
@@ -100,7 +100,7 @@ function GreenText(text)
 
 	if (text) then
 		return "|cff00ff00"..text.._G["FONT_COLOR_CODE_CLOSE"]
-	end 
+	end
 
 end
 
@@ -108,7 +108,7 @@ function RedText(text)
 
 	if (text) then
 		return "|cffff0000"..text.._G["FONT_COLOR_CODE_CLOSE"]
-	end 
+	end
 
 end
 
@@ -116,7 +116,7 @@ function BlueText(text)
 
 	if (text) then
 		return "|cff0000ff"..text.._G["FONT_COLOR_CODE_CLOSE"]
-	end 
+	end
 
 end
 
@@ -141,14 +141,14 @@ function NormalText(text)
 	if (text) then
 		return _G["NORMAL_FONT_COLOR_CODE"]..text.._G["FONT_COLOR_CODE_CLOSE"];
 	end
-	
+
 end
 
 function ColoredText(text, color)
 	if (text and color) then
-		local redColorCode = format("%02x", color.r * 255);		
+		local redColorCode = format("%02x", color.r * 255);
 		local greenColorCode = format("%02x", color.g * 255);
-		local blueColorCode = format("%02x", color.b * 255);		
+		local blueColorCode = format("%02x", color.b * 255);
 		local colorCode = "|cff"..redColorCode..greenColorCode..blueColorCode;
 		return colorCode..text.._G["FONT_COLOR_CODE_CLOSE"];
 	end
@@ -178,48 +178,13 @@ function siUnits(value)
 	end
 end
 
-function GetConqCap(value)
-
---personRating = tonumber(personRating)
-
-if (not value or value==0) then
-	return "N\/A"
-end
-
-local funcConqCap = (select(5,GetCurrencyInfo(CONQUEST_CURRENCY)))
-
-if (value>=1500 and value<1800 or value<1500) then
-	return "1343 \(\@"..value.." PR\)"
-elseif (value>=1800 and value<2100) then
-	if (funcConqCap==1940) then
-		return "1940 \(\@"..value.." PR\)"
-	else
-		return "1940 \(\@"..value.." PR\) NEXT WEEK"
+function format_number(amount)
+	local formatted = amount
+	while true do
+	  formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+	  if (k==0) then
+		break
+	  end
 	end
-elseif (value>=2100 and value<2400) then
-	if (funcConqCap==2533) then
-		return "2533 \(\@"..value.." PR\)"
-	else
-		return "2533 \(\@"..value.." PR\) NEXT WEEK"
-	end
-elseif (value>=2400 and value<2700) then
-	if (funcConqCap==2849) then
-		return "2849 \(\@"..value.." PR\)"
-	else
-		return "2849 \(\@"..value.." PR\) NEXT WEEK"
-	end
-elseif (value>=2700 and value<3000) then
-	if (funcConqCap==2964) then
-		return "2964 \(\@"..value.." PR\)"
-	else
-		return "2964 \(\@"..value.." PR\) NEXT WEEK"
-	end
-elseif (value>=3000) then
-	if (funcConqCap==3000) then
-		return "3000 \(\@"..value.." PR\)"
-	else
-		return "3000 \(\@"..value.." PR\) NEXT WEEK"
-	end
-end
-
-end
+	return formatted
+  end
