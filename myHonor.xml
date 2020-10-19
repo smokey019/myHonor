@@ -32,6 +32,9 @@
             <BorderColor r="0.7" g="1" b="0.7" a="1" />
         </Backdrop>
         <Layers>
+              <Layer level="BACKGROUND">
+                <Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true" setAllPoints="true"/>
+              </Layer>
 			<Layer level="ARTWORK">
 				<Texture name="mhOptionsFrameHeader" file="Interface/DialogFrame/UI-DialogBox-Header">
 					<Size>
