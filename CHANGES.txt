@@ -1,0 +1,135 @@
+commit 9dd86d06c50c5a900e89740f4b93db6adfff89c6
+Author: Smokey <9442271+smokey019@users.noreply.github.com>
+Date:   Sun Oct 18 20:29:52 2020 -0600
+
+    Fix options background
+
+commit 96b843c77f28e1077307137ecddd4176638ac5e6
+Author: Smokey <9442271+smokey019@users.noreply.github.com>
+Date:   Wed Oct 14 20:04:06 2020 -0600
+
+    Update myHonor.lua
+
+commit 346cf3d322bf5066cc7ea967ecdf90c391199447
+Author: Smokey <9442271+smokey019@users.noreply.github.com>
+Date:   Wed Oct 14 18:07:33 2020 -0600
+
+    more fixes
+    
+    Fixes for honor tab.
+
+commit 91554debb52635dc8e4845536162d9461a8ae2b1
+Author: Smokey <9442271+smokey019@users.noreply.github.com>
+Date:   Wed Oct 14 17:26:53 2020 -0600
+
+    support for 9.0.1
+    
+    Removed: Broken stuff that didn't work anymore
+    Fixed: Honor and Conquest numbers.
+    Added: Support for 9.0.1
+
+commit 777d1fff700ff0b8a9606c98e98e053e2acc8b15
+Author: Smokey <9442271+smokey019@users.noreply.github.com>
+Date:   Sat Dec 14 21:07:20 2019 -0700
+
+    Update README.md
+
+commit 265b5343162ad59a5f8605a159be7c40a58ae572
+Author: smokey019 <9442271+smokey019@users.noreply.github.com>
+Date:   Sat Dec 14 21:04:34 2019 -0700
+
+    updated for 8.2
+
+commit 07444d520abdd272ed380b4469b7dd02c6832ece
+Author: smokey019 <9442271+smokey019@users.noreply.github.com>
+Date:   Sat Dec 14 20:16:14 2019 -0700
+
+    temporary push for 2k19
+
+commit 5451323ca03dfa73ff620c2f9351acd3705cce18
+Author: xeropresence <3128949+xeropresence@users.noreply.github.com>
+Date:   Sun Jun 3 03:48:40 2018 -0400
+
+    Bump version
+
+commit 01764e5202d593989334b0ebe81c448c57e33c4f
+Author: xeropresence <3128949+xeropresence@users.noreply.github.com>
+Date:   Sun Jun 3 03:30:25 2018 -0400
+
+    Rip out conquest logic
+    Rip out addon message stuff
+    Reimplement date check
+    Fix LDB not displaying at start
+    Fix trailing character in LDB display
+    Fix calculating honor gained
+    Fix average honor per bg
+
+commit b534d13a71d874babec0fb62553def0c809fb199
+Author: xeropresence <3128949+xeropresence@users.noreply.github.com>
+Date:   Sun Jun 3 03:00:09 2018 -0400
+
+    Swap the order so millions will get handled
+
+commit 571f27e75fc3d2e14b795508c947b64c4eee23e5
+Author: smokey019 <9442271+smokey019@users.noreply.github.com>
+Date:   Sat May 12 17:34:17 2018 -0500
+
+    CURRENCY_DISPLAY_UPDATE removal
+    
+    -CURRENCY_DISPLAY_UPDATE
+    +CHAT_MSG_COMBAT_HONOR_GAIN
+
+commit db7af51b86a80841ff2452df30f4cdf21184765f
+Author: smokey019 <frozensmoke@gmail.com>
+Date:   Fri Apr 20 20:31:06 2018 -0500
+
+    Update LICENSE
+
+commit 59105b43e0d39549de8eea0cb7ec2c1efe518189
+Author: smokey019 <frozensmoke@gmail.com>
+Date:   Fri Apr 20 20:30:52 2018 -0500
+
+    Update LICENSE.txt
+
+commit abccfd41ac5c74e9d3d683b7ab7f2d693b55a163
+Author: smokey019 <frozensmoke@gmail.com>
+Date:   Fri Apr 20 19:46:27 2018 -0500
+
+    legion changes
+    
+    beta update
+    
+    loads from new honor system
+    
+    fixed major errors that made the addon completely unusable.
+
+commit abccfd41ac5c74e9d3d683b7ab7f2d693b55a163
+Author: smokey019 <frozensmoke@gmail.com>
+Date:   Fri Apr 20 19:46:27 2018 -0500
+
+    legion changes
+    
+    beta update
+    
+    loads from new honor system
+    
+    fixed major errors that made the addon completely unusable.
+
+commit 70ac6f5f493616e84fa251ffa668e33197b0a8cf
+Author: smokey019 <frozensmoke@gmail.com>
+Date:   Fri Apr 20 16:57:01 2018 -0500
+
+    Update README.md
+
+commit 48ee030cdff85c7f956e5a0d4cc28115c46c9f03
+Author: smokey019 <frozensmoke@gmail.com>
+Date:   Fri Apr 20 16:55:58 2018 -0500
+
+    Create README.md
+
+commit 1398b493133855b63a70150f02f7b4b9534b9187
+Author: smokey019 <frozensmoke@gmail.com>
+Date:   Fri Apr 20 16:53:33 2018 -0500
+
+    Initial commit
+

@@ -17,20 +17,6 @@
                 </Offset>
             </Anchor>
         </Anchors>
-        <Backdrop bgFile="Interface/DialogFrame/UI-DialogBox-Background" edgeFile="Interface/DialogFrame/UI-DialogBox-Border"
-             tile="true" alphaMode="BLEND">
-            <EdgeSize>
-                <AbsValue val="16"/>
-            </EdgeSize>
-            <TileSize>
-                <AbsValue val="32"/>
-            </TileSize>
-            <BackgroundInsets>
-                <AbsInset left="5" right="5" top="5" bottom="5"/>
-            </BackgroundInsets>
-            <Color r="0.7" g="1" b="0.7" a="1" />
-            <BorderColor r="0.7" g="1" b="0.7" a="1" />
-        </Backdrop>
         <Layers>
               <Layer level="BACKGROUND">
                 <Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true" setAllPoints="true"/>

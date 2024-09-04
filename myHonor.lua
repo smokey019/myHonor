@@ -14,12 +14,13 @@ Twitch: https://twitch.tv/Smokey
 --[[
 	Config
 --]]
-local mhVersion = GetAddOnMetadata("myHonor", "Version") .. " Release"
-local rawVersion = GetAddOnMetadata("myHonor", "Version")
+local mhVersion = C_AddOns.GetAddOnMetadata("myHonor", "Version") .. " Release"
+local rawVersion = C_AddOns.GetAddOnMetadata("myHonor", "Version")
 local mhAddon = "myHonor"
-local mqVersion = GetAddOnMetadata("myHonor", "Version") .. " Release"
+local mqVersion = C_AddOns.GetAddOnMetadata("myHonor", "Version") .. " Release"
 local mqAddon = "myConquest"
 local addon = ...
+local myHonor = LibStub("AceAddon-3.0"):NewAddon("myHonor")
 
 --[[
 	Icons, graphics, etc..
@@ -28,18 +29,12 @@ local healsIcon = "|TInterface\\LFGFrame\\UI-LFG-ICON-PORTRAITROLES.blp:15:15:0:
 local dmgIcon = "|TInterface\\LFGFrame\\UI-LFG-ICON-PORTRAITROLES.blp:15:15:0:0:64:64:20:39:22:41|t"
 local honorIcon = "Interface\\PVPFrame\\PVP-Currency-"..UnitFactionGroup("player")
 local conquestIcon = "Interface\\PVPFrame\\PVPCurrency-Conquest-"..UnitFactionGroup("player")
+MinimapButton = LibStub("LibDBIcon-1.0", true)
 
 -- Initializing the object and frame
-local OnEvent = function(self, event, ...) self[event](self, event, ...) end
-local dataobj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("myHonor", {
-	type = "data source",
-	icon = honorIcon,
-	label = "myHonor",
-})
-local myHonor = {}
 local frame, events = CreateFrame"Frame", {}
 
--- [[    Varibles, etc    ]] --
+-- [[    Variables, etc    ]] --
 local showedUpdate, peopleUsing = false, { ["Character"] = {} }
 local session, total, startTime
 local HonorGained, SessionHonor, StartingHonor, BGHonor, LastBG, HonorBefore = 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -186,11 +181,10 @@ function events:PLAYER_ENTERING_WORLD()
 
     HonorGained = (UnitHonor("player"))
 	ZoneInfo = (select(2, IsInInstance()))
-	local WorldBG_Active = (select(3, GetWorldPVPAreaInfo(2)))
 	local ZoneName = GetZoneText()
 
 	--in a BG
-	if (ZoneInfo == "pvp" or ZoneName == "Tol Barad" and WorldBGActive == true or ZoneName == "Wintergrasp" and WorldBGActive == true) then
+	if (ZoneInfo == "pvp") then
 
 		InBG = 1
 		myStats.BattleCount = tonumber(myStats.BattleCount) or 0
@@ -412,15 +406,6 @@ end
 
 end
 
-
--- [[   The tooltip  ]] --
-function dataobj.OnTooltipShow(tooltip)
-
-	myHonorTT(tooltip,myOptions.Tooltip)
-	tooltip.updateFunction = dataobj.OnTooltipShow
-
-end
-
 SLASH_GOAL1 = "/goal"
 function SlashCmdList.GOAL(msg)
 
@@ -505,7 +490,7 @@ elseif (cmd=="help" or cmd=="") then
 
 elseif (cmd=="secret") then
 
-	print("People using add-on:",table.getn(peopleUsing.Character))
+	print("People using add-on:",(#peopleUsing.Character))
 
 elseif (cmd=="secret2") then
 
@@ -561,44 +546,6 @@ end
 
 --[[
 
-When we click on the tool-bar:
-
---]]
-function dataobj.OnClick(self, button)
-
-	if(button == "LeftButton") then
-
-		if (myOptions.Tooltip == 1) then
-
-		myOptions.Tooltip = 2
-		ShortPrint("Conquest will be displayed in the tooltip.")
-
-	else
-
-		myOptions.Tooltip = 1
-		ShortPrint("Honor will be displayed in the tooltip.")
-
-	end
-
-	elseif(button == "RightButton") then
-
-		if (mh_OptionsWindow:IsVisible()) then
-
-			mh_OptionsWindow:Hide()
-
-		else
-
-			mh_OptionsWindow:Show()
-		end
-
-	end
-
-	--events:CHAT_MSG_COMBAT_HONOR_GAIN()
-
-end
-
---[[
-
 Initial Honor Check
 
 --]]
@@ -615,127 +562,6 @@ function frame:CheckHonor()
 	end
 
 end
-
-----------------------
---  Minimap Button  --
-----------------------
-do
-	local dragMode = nil
-
-	local function moveButton(self)
-		if dragMode == "free" then
-			local centerX, centerY = Minimap:GetCenter()
-			local x, y = GetCursorPosition()
-			x, y = x / self:GetEffectiveScale() - centerX, y / self:GetEffectiveScale() - centerY
-			self:ClearAllPoints()
-			self:SetPoint("CENTER", x, y)
-		else
-			local centerX, centerY = Minimap:GetCenter()
-			local x, y = GetCursorPosition()
-			x, y = x / self:GetEffectiveScale() - centerX, y / self:GetEffectiveScale() - centerY
-			centerX, centerY = math.abs(x), math.abs(y)
-			centerX, centerY = (centerX / math.sqrt(centerX^2 + centerY^2)) * 80, (centerY / sqrt(centerX^2 + centerY^2)) * 80
-			centerX = x < 0 and -centerX or centerX
-			centerY = y < 0 and -centerY or centerY
-			self:ClearAllPoints()
-			self:SetPoint("CENTER", centerX, centerY)
-		end
-	end
-
-	local button = CreateFrame("Button", "myHonorButton", Minimap)
-	button:SetHeight(32)
-	button:SetWidth(32)
-	button:SetFrameStrata("MEDIUM")
-	button:SetPoint("CENTER", -65.35, -38.8)
-	button:SetMovable(true)
-	button:SetUserPlaced(true)
-
-	local icon = button:CreateTexture(nil, "BORDER")
-	icon:SetTexture("Interface\\AddOns\\"..addon.."\\icon")
-	icon:SetSize(20, 20)
-	icon:SetPoint("TOPLEFT", 6, -6)
-
-	local border = button:CreateTexture(nil, "OVERLAY")
-	border:SetTexture([[Interface\Minimap\MiniMap-TrackingBorder]])
-	border:SetSize(54, 54)
-	border:SetPoint("TOPLEFT")
-
-	button:SetScript("OnMouseDown", function(self, button)
-
-		if IsShiftKeyDown() and IsAltKeyDown() then
-
-			dragMode = "free"
-			self:SetScript("OnUpdate", moveButton)
-
-		elseif IsShiftKeyDown() then
-
-			dragMode = nil
-			self:SetScript("OnUpdate", moveButton)
-
-		elseif (button == "LeftButton") then
-
-			--[[if (myOptions.Tooltip==1) then
-
-				myOptions.Tooltip = 2
-				GameTooltip:Hide()
-
-			elseif (myOptions.Tooltip==2) then
-
-				myOptions.Tooltip = 1
-				GameTooltip:Hide()
-
-			end--]]
-
-		elseif (button == "RightButton") then
-
-			if ( mh_OptionsWindow:IsVisible() ) then
-
-				mh_OptionsWindow:Hide();
-
-			else
-
-				mh_OptionsWindow:Show();
-
-			end
-
-		end
-	end)
-	button:SetScript("OnMouseUp", function(self)
-		self:SetScript("OnUpdate", nil)
-	end)
-	button:SetScript("OnClick", function(self, button)
-
-		ToggleHonor()
-
-	end)
-	button:SetScript("OnEnter", function(self)
-
-		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
-		myHonorTT(GameTooltip,myOptions.Tooltip)
-		GameTooltip:Show()
-
-	end)
-	button:SetScript("OnLeave", function(self)
-		GameTooltip:Hide()
-	end)
-
-	function ToggleMinimapButton()
-
-	myOptions.ShowMinimapButton = not myOptions.ShowMinimapButton
-
-	if myOptions.ShowMinimapButton then
-		button:Show()
-		ShortPrint("Minimap button is now showing.")
-	else
-		button:Hide()
-		ShortPrint("Minimap button is now hidden.")
-	end
-end
---[[
-
-End minimap button
-
---]]
 
 --[[
 
@@ -758,12 +584,6 @@ function ToggleHonor()
 	end
 end
 
-function HideMinimapButton()
-	return button:Hide()
-end
-
-end
-
 --[[
 
 This function is to help reduce clutter, it selects which tooltip to be displaying: conquest or honor.
@@ -783,10 +603,8 @@ function myHonorTT(tt,which)
 
 		--diplay Honor Tooltip
 	 	local AJBGtext
-	 	local HonorGoalFinal, HonorGoalTime, ConquestGoalFinal, ConquestGoalTime = 0, 0, 0, 0
+	 	local HonorGoalFinal, HonorGoalTime = 0, 0
 	 	local HonorGoalPercent = 0
-		local _, _, WG_isActive, _, WG_startTime = GetWorldPVPAreaInfo(1)
-		local _, _, TB_isActive, _, TB_startTime = GetWorldPVPAreaInfo(2)
 
      	if (InBG==1) then
 
@@ -1093,105 +911,48 @@ function UpdateDisplayBar()
 
 	end
 
-	dataobj.text = GoldText(" ")
-
-	--Honor Gained
-	if (myOptions["DisplayBar"][1]==true) then
-
-		dataobj.value = HonorGained
-		dataobj.text = dataobj.text..Should_I_Be_Red(HonorGained).."/"..GreenText(UnitHonorMax("player"))..mH_BAR_ONE.." | "
-
-	end
-
-	--Session Honor
-	if (myOptions["DisplayBar"][2]==true) then
-
-		dataobj.value = SessionHonor
-		dataobj.text = dataobj.text..Should_I_Be_Red(format("%d",SessionHonor))..mH_BAR_TWO.." | "
-
-	end
-
-	--Honor Goal Text
-	if (myOptions["DisplayBar"][3]==true) then
-
-		dataobj.value = HonorGoalFinal
-		dataobj.text = dataobj.text..GetHighText(HonorGained).."/"..GreenText(myStats.HonorGoal)..mH_BAR_THREE.." | "
-
-	end
-
-	--Honor This Battleground
-	if (myOptions["DisplayBar"][4]==true) then
-
-		dataobj.value = BGHonor
-		dataobj.text = dataobj.text..Should_I_Be_Red(BGHonor)..mH_BAR_FOUR.." | "
-
-	end
-
-	--Average Honor Per BG (if we can get it)
-	if (myOptions["DisplayBar"][5]==true) then
-
-		dataobj.value = AvgHonor
-		dataobj.text = dataobj.text..Should_I_Be_Red(format("%d",AvgHonor))..mH_BAR_FIVE.." | "
-
-	end
-
-	--Total Honor Kills
-	if (myOptions["DisplayBar"][6]==true) then
-
-		dataobj.value = TotalHKs
-		dataobj.text = dataobj.text..Should_I_Be_Red(TotalHKs)..mH_BAR_SIX.." | "
-
-	end
-
-	--Honor Kills this Session
-	if (myOptions["DisplayBar"][7]==true) then
-
-		dataobj.value = SessionHKs
-		dataobj.text = dataobj.text..Should_I_Be_Red(SessionHKs)..mH_BAR_SEVEN.." | "
-
-	end
-
-	--Total Conquest
-	if (myOptions["DisplayBar"][8]==true) then
-
-		dataobj.value = ConqTotal
-		dataobj.text = dataobj.text..Should_I_Be_Red(ConqTotal)..mH_BAR_EIGHT.." | "
-
-	end
-
-	--Conquest this Session
-	if (myOptions["DisplayBar"][9]==true) then
-
-		dataobj.value = SessionCP
-		dataobj.text = dataobj.text..Should_I_Be_Red(SessionCP)..mH_BAR_NINE.." | "
-
-	end
-
-	--Conquest Goal Text
-	if (myOptions["DisplayBar"][10]==true) then
-
-		dataobj.value = ConquestGoalFinal
-		dataobj.text = dataobj.text..ConquestGoalFinal..mH_BAR_TEN.." | "
-
-	end
-
-	--Average Conquest Points (if available)
-	if (myOptions["DisplayBar"][11]==true) then
-
-		dataobj.value = AvgCP
-		dataobj.text = dataobj.text..Should_I_Be_Red(AvgCP)..mH_BAR_ELEVEN.." | "
-
-	end
-
-	--Conquest Cap info
-	if (myOptions["DisplayBar"][12]==true) then
-
-		dataobj.value = ConqCap
-		dataobj.text = dataobj.text..Should_I_Be_Red(ConqCapTotal).."/"..GreenText(ConqCap)..mH_BAR_TWELVE.." |"
-
-	end
-
 end
+
+local miniButton = LibStub("LibDataBroker-1.1"):NewDataObject("myHonor", {
+	type = "data source",
+	text = "myHonor",
+	icon = honorIcon,
+	OnClick = function(self, btn)
+		if btn == "LeftButton" then
+			ToggleHonor()
+		elseif btn == "RightButton" then
+			if mh_OptionsWindow:IsShown() then
+				mh_OptionsWindow:Hide()
+			else
+				mh_OptionsWindow:Show()
+			end
+		end
+	end,
+
+	OnTooltipShow = function(tooltip)
+		if not tooltip or not tooltip.AddLine then
+			return
+		end
+
+		myHonorTT(tooltip, myOptions.Tooltip)
+
+	end,
+})
+
+function myHonor:OnInitialize()
+	self.db = LibStub("AceDB-3.0"):New("myHonorMinimapPOS", {
+		profile = {
+			minimap = {
+				hide = false,
+			},
+		},
+	})
+
+	MinimapButton:Register("myHonor", miniButton, self.db.profile.minimap)
+end
+
+MinimapButton:Show("myHonor")
+
 
 --word, ©opyright Smokey, 2010-2020 All Rights Reserved, released under MIT License.
 --if you're going to edit, at least give me credit or tell me about it and we can work together

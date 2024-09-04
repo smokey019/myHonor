@@ -1,19 +1,20 @@
-## Interface: 90001
+## Interface: 110002
 
-## Title: my|cffeda55fHonor|r [|cff00aa009.0.1|r Release]
+## Title: my|cffeda55fHonor|r [|cff00aa0011.0.2|r Release]
 
 ## Author: Smokey
 
-## Version: 9.0.1
+## Version: 11.0.2.1
 
-## Notes: Brokers honor stats in the best way possible, with tons of features.
+## Notes: Quick display for honor or conquest. Set goals as well. Being updated for TWW.
 
 ## SavedVariablesPerCharacter:  myOptions, myStats
 
-libs\LibStub.lua
+# Libraries
+libs/AceAddon-3.0/AceAddon-3.0.lua
+libs/AceDB-3.0/AceDB-3.0.lua
+libs/LibDBIcon-1.0/LibDBIcon-1.0.lua
 
-libs\CallbackHandler-1.0.lua
-
-libs\LibDataBroker-1.1.lua
+libs/CallbackHandler-1.0.lua
 
 myHonor.xml
