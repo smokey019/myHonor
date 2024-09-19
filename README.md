@@ -1,9 +1,10 @@
 # myHonor
+
 WoW Addon for tracking honor points.
 
 A data broker add-on for Honor Points.
 
- 
+
 
 Features:
 
@@ -25,15 +26,14 @@ Tracks session and battleground damage for easy access
 
 Displays ALL this information and more on a simple mini-map button and/or on Titan Panel.
 
-
 Usage:
 
 Set a goal: "/goal #" ie: "/goal 2000"
 
 Right click on minimap button or display bar to open the options panel.
- 
 
- 
+
+
 https://wow.curseforge.com/projects/myhonor
 
 https://smokey.gg

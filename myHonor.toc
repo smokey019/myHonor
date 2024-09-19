@@ -4,7 +4,7 @@
 
 ## Author: Smokey
 
-## Version: 11.0.2.1
+## Version: 11.0.2.2
 
 ## Notes: Quick display for honor or conquest. Set goals as well. Being updated for TWW.
 
