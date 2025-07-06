@@ -1,10 +1,10 @@
-## Interface: 110002
+## Interface: 110107
 
-## Title: my|cffeda55fHonor|r [|cff00aa0011.0.2|r Release]
+## Title: my|cffeda55fHonor|r [|cff00aa0011.1.0.7|r Release]
 
 ## Author: Smokey
 
-## Version: 11.0.2.2
+## Version: 11.1.0.7
 
 ## Notes: Quick display for honor or conquest. Set goals as well. Being updated for TWW.
 
